@@ -41,7 +41,7 @@ int totalSum(int start, int end)//сумма простых двузначных
 
 int hw01(int start, int end)
 {
-    if(start % 1000 < 100 && start % 100 > 9 && end % 1000 < 100 && end % 100 > 9)//проверка на двузначность
+    if(start % 1000 < 100 && start % 100 > 9 && end % 1000 < 100 && end % 100 > 9)//проверка start и end на двузначность
     {
         return totalSum(start, end);
     }
