@@ -1,22 +1,22 @@
 #include <hw02.h>
 
-bool contains(std::string, char);
+bool contains(std::string, char, int);
 
 std::string hw02(std::string input_str){
-    std::string output_str{};
-
-    for(int i = 0; i < input_str.length(); i++)
+    int size = input_str.length();
+    for(int i = 0; i < size; i++)
     {
-        if(!contains(output_str, input_str[i])){
-            output_str.push_back(input_str[i]);
+        if(!contains(input_str, input_str[i], i)){
+            input_str.push_back(input_str[i]);
         }
     }
-    return output_str;
+    input_str.erase(0, size);
+    return input_str;
 }
 
-bool contains(std::string str, char ch){
+bool contains(std::string str, char ch, int size){
     bool flag = false;
-    for(int i = 0; i < str.length(); i++){
+    for(int i = 0; i < size; i++){
         if(str[i] == ch){
             flag = true;
             break;
