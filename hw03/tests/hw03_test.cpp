@@ -81,6 +81,39 @@ TEST(Hw03Tests, Test10)
     EXPECT_EQ(std::string(expected), std::string(input));
 }
 
+//tests created by me NiyazImamov
+TEST(Hw03Tests, Test11)
+{
+    const auto expected = "AC";
+    char input[] = {"ABC"};
+    hw03(input, "B");
+    EXPECT_EQ(std::string(expected), std::string(input));
+}
+
+TEST(Hw03Tests, Test12)
+{
+    const auto expected = "AB";
+    char input[] = {"ABCD"};
+    hw03(input, "CD");
+    EXPECT_EQ(std::string(expected), std::string(input));
+}
+
+TEST(Hw03Tests, Test13)
+{
+    const auto expected = "sta";
+    char input[] = {"stastar"};
+    hw03(input, "star");
+    EXPECT_EQ(std::string(expected), std::string(input));
+}
+
+TEST(Hw03Tests, Test14)
+{
+    const auto expected = "s";
+    char input[] = {"sst"};
+    hw03(input, "st");
+    EXPECT_EQ(std::string(expected), std::string(input));
+}
+
 int main(int argc, char** argv)
 {
     ::testing::InitGoogleTest(&argc, argv);
