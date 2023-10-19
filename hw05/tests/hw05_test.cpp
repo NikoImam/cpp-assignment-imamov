@@ -41,6 +41,48 @@ TEST(Hw05Tests, Test5)
     EXPECT_EQ(actual, expected);
 }
 
+//MyTests
+
+TEST(Hw05Tests, Test6)
+{
+    VecOfStr input{"A man, a plan, a canal, Panama!", "SIMPLETEXT"};
+    auto expected = VecOfStr{"A man, a plan, a canal, Panama!"};
+    auto actual = hw05(input);
+    EXPECT_EQ(actual, expected);
+}
+
+TEST(Hw05Tests, Test7)
+{
+    VecOfStr input{"A man, a plan, a canal, Panama!", "SIMPLETEXT"};
+    auto expected = VecOfStr{"A man, a plan, a canal, Panama!"};
+    auto actual = hw05(input);
+    EXPECT_EQ(actual, expected);
+}
+
+TEST(Hw05Tests, Test8)
+{
+    VecOfStr input{"A man, a plan, a canal, Panama!", "SIMPLETEXT"};
+    auto expected = VecOfStr{"A man, a plan, a canal, Panama!"};
+    auto actual = hw05(input);
+    EXPECT_EQ(actual, expected);
+}
+
+TEST(Hw05Tests, Test9)
+{
+    VecOfStr input{"A man, a plan, a canal, Panama!", "SIMPLETEXT"};
+    auto expected = VecOfStr{"A man, a plan, a canal, Panama!"};
+    auto actual = hw05(input);
+    EXPECT_EQ(actual, expected);
+}
+
+TEST(Hw05Tests, Test10)
+{
+    VecOfStr input{"A man, a plan, a canal, Panama!", "SIMPLETEXT"};
+    auto expected = VecOfStr{"A man, a plan, a canal, Panama!"};
+    auto actual = hw05(input);
+    EXPECT_EQ(actual, expected);
+}
+
 int main(int argc, char** argv)
 {
     ::testing::InitGoogleTest(&argc, argv);
