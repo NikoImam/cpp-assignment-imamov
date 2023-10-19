@@ -16,26 +16,25 @@ VecOfStr hw05(const VecOfStr& strings)
 
         auto isChar = [](char c)
         {
-            return 'a' <= c <= 'z' || 'A' <= c <= 'Z';
+            return 'a' <= c && c <= 'z' || 'A' <= c && c <= 'Z';
         };
 
-        auto beginIt = str.begin();
-        auto endIt = str.rbegin();
-        bool flag = true;
-        while(*beginIt <= *endIt)
+        int64_t frontInd = 0;
+        int64_t backInd = str.length() - 1;
+        while(frontInd <= backInd)
         {
-            while(!isChar(*beginIt)) beginIt++;
-            while(!isChar(*endIt)) endIt--;
+            while(!isChar(str[frontInd])) frontInd++;
+            while(!isChar(str[backInd])) backInd--;
+            
 
-            if(toLower(*beginIt) != toLower(*endIt))
+            if(toLower(str[frontInd]) != toLower(str[backInd]))
             {
-                flag = false;
-                break;
+                return false;
             }
-            beginIt++;
-            endIt--;
+            frontInd++;
+            backInd--;
         }
-        return flag;
+        return true;
     };
 
     VecOfStr output{};
@@ -44,7 +43,7 @@ VecOfStr hw05(const VecOfStr& strings)
         
         if(isAnagram(str))
         {
-            std::cout << str <<'\n';
+            //std::cout << str <<'\n';
             output.push_back(str);
         }
 

@@ -45,40 +45,40 @@ TEST(Hw05Tests, Test5)
 
 TEST(Hw05Tests, Test6)
 {
-    VecOfStr input{"A man, a plan, a canal, Panama!", "SIMPLETEXT"};
-    auto expected = VecOfStr{"A man, a plan, a canal, Panama!"};
+    VecOfStr input{"Cowwow", "aboba"};
+    auto expected = VecOfStr{"aboba"};
     auto actual = hw05(input);
     EXPECT_EQ(actual, expected);
 }
 
 TEST(Hw05Tests, Test7)
 {
-    VecOfStr input{"A man, a plan, a canal, Panama!", "SIMPLETEXT"};
-    auto expected = VecOfStr{"A man, a plan, a canal, Panama!"};
+    VecOfStr input{"iskat -taksi", "makaka","Cigar? Toss it in a can. It is so tragic"};
+    auto expected = VecOfStr{"iskat -taksi", "Cigar? Toss it in a can. It is so tragic"};
     auto actual = hw05(input);
     EXPECT_EQ(actual, expected);
 }
 
 TEST(Hw05Tests, Test8)
 {
-    VecOfStr input{"A man, a plan, a canal, Panama!", "SIMPLETEXT"};
-    auto expected = VecOfStr{"A man, a plan, a canal, Panama!"};
+    VecOfStr input{"Naomi, Gianna, Ed, Nall, Robert, Allen, Red, Hon, Evan, Eden, Mel, Lola, Alol, Lemned, Enave, Noh, Der, Nella, Trebor, Llan, De, Anna, Ig & I moan", "Rats drown in WordStar.", "May a moody baby doom a yam", "I want to sleep!!!", "Go, Johny, go, go", "Egad! An adage!"};
+    auto expected = VecOfStr{"Naomi, Gianna, Ed, Nall, Robert, Allen, Red, Hon, Evan, Eden, Mel, Lola, Alol, Lemned, Enave, Noh, Der, Nella, Trebor, Llan, De, Anna, Ig & I moan", "Rats drown in WordStar.", "May a moody baby doom a yam", "Egad! An adage!"};
     auto actual = hw05(input);
     EXPECT_EQ(actual, expected);
 }
 
 TEST(Hw05Tests, Test9)
 {
-    VecOfStr input{"A man, a plan, a canal, Panama!", "SIMPLETEXT"};
-    auto expected = VecOfStr{"A man, a plan, a canal, Panama!"};
+    VecOfStr input{"\"Regal as tide\", Kramer remarked. \"It's a lager!\""};
+    auto expected = VecOfStr{"\"Regal as tide\", Kramer remarked. \"It's a lager!\""};
     auto actual = hw05(input);
     EXPECT_EQ(actual, expected);
 }
 
 TEST(Hw05Tests, Test10)
 {
-    VecOfStr input{"A man, a plan, a canal, Panama!", "SIMPLETEXT"};
-    auto expected = VecOfStr{"A man, a plan, a canal, Panama!"};
+    VecOfStr input{"Just text", "Yo hago yoga hoy", "a-*$&#-a"};
+    auto expected = VecOfStr{"Yo hago yoga hoy", "a-*$&#-a"};
     auto actual = hw05(input);
     EXPECT_EQ(actual, expected);
 }
