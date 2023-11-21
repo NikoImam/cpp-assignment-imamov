@@ -1,45 +1,104 @@
 #include <hw06.h>
 #include <gtest/gtest.h>
 
-// TEST(Hw05Tests, Test1)
-// {
-//     VecOfStr input{"madam", "radar", "anagram", "rotor"};
-//     auto expected = VecOfStr{"madam", "radar", "rotor"};
-//     auto actual = hw05(input);
-//     EXPECT_EQ(actual, expected);
-// }
+TEST(Hw06Tests, Test1)
+{
+    auto vect = MyIntVector();
+    EXPECT_EQ(vect.size(), 0);
+}
 
-// TEST(Hw05Tests, Test2)
-// {
-//     VecOfStr input{"Madam, in Eden, I'm Adam"};
-//     auto expected = VecOfStr{"Madam, in Eden, I'm Adam"};
-//     auto actual = hw05(input);
-//     EXPECT_EQ(actual, expected);
-// }
+TEST(Hw06Tests, Test2)
+{
+    auto vect = MyIntVector(10);
+    EXPECT_EQ(vect.size(), 0);
+}
 
-// TEST(Hw05Tests, Test3)
-// {
-//     VecOfStr input{"Red roses run no risk, sir, on Nurse's order"};
-//     auto expected = VecOfStr{"Red roses run no risk, sir, on Nurse's order"};
-//     auto actual = hw05(input);
-//     EXPECT_EQ(actual, expected);
-// }
+TEST(Hw06Tests, Test3)
+{
+    auto vect = MyIntVector(25, 5);
+    EXPECT_EQ(vect.size(), 25);
+}
 
-// TEST(Hw05Tests, Test4)
-// {
-//     VecOfStr input{"Won't lovers revolt now?"};
-//     auto expected = VecOfStr{"Won't lovers revolt now?"};
-//     auto actual = hw05(input);
-//     EXPECT_EQ(actual, expected);
-// }
+TEST(Hw06Tests, Test4)
+{
+    auto vect = MyIntVector(10);
+    EXPECT_EQ(vect.capacity(), 10);
+}
 
-// TEST(Hw05Tests, Test5)
-// {
-//     VecOfStr input{"A man, a plan, a canal, Panama!", "SIMPLETEXT"};
-//     auto expected = VecOfStr{"A man, a plan, a canal, Panama!"};
-//     auto actual = hw05(input);
-//     EXPECT_EQ(actual, expected);
-// }
+TEST(Hw06Tests, Test5)
+{
+    auto vect = MyIntVector(10);
+    vect.push_back(5);
+    vect.push_back(-3);
+    vect.push_back(2700000);
+    EXPECT_EQ(vect[1], -3);
+}
+
+TEST(Hw06Tests, Test6)
+{
+    auto vect = MyIntVector(10);
+    vect.push_back(5);
+    vect.push_back(-3);
+    vect.push_back(2700000);
+    vect.push_back(7);
+    vect.push_back(-323);
+    vect.push_back(-342004500);
+    vect.resize(5);
+    EXPECT_EQ(*vect.end(), 0);
+}
+
+TEST(Hw06Tests, Test7)
+{
+    auto vect = MyIntVector(10);
+    vect.push_back(5);
+    vect.push_back(-3);
+    vect.push_back(2700000);
+    vect.push_back(7);
+    vect.push_back(-323);
+    vect.push_back(-342004500);
+    vect.resize(15, 18);
+    EXPECT_EQ(vect[13], 18);
+}
+
+TEST(Hw06Tests, Test8)
+{
+    auto vect = MyIntVector(10);
+    vect.push_back(5);
+    vect.push_back(-3);
+    vect.push_back(2700000);
+    vect.push_back(7);
+    vect.push_back(-323);
+    vect.push_back(-342004500);
+    vect.reserve(50);
+    EXPECT_EQ(vect.capacity(), 50);
+}
+
+TEST(Hw06Tests, Test9)
+{
+    auto vect = MyIntVector(10);
+    vect.push_back(5);
+    vect.push_back(-3);
+    vect.push_back(2700000);
+    vect.push_back(7);
+    vect.push_back(-323);
+    vect.push_back(-342004500);
+    EXPECT_EQ(*vect.begin(), 5);
+}
+
+TEST(Hw06Tests, Test10)
+{
+    auto vect = MyIntVector(10);
+    vect.push_back(5);
+    vect.push_back(-3);
+    vect.push_back(2700000);
+    vect.push_back(7);
+    vect.push_back(-323);
+    vect.push_back(-342004500);
+    vect.resize(6);
+    vect.reserve(50);
+    vect.shrink_to_fit();
+    EXPECT_EQ(vect.capacity(), 6);
+}
 
 int main(int argc, char** argv)
 {
