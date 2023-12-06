@@ -1,0 +1,7 @@
+jpg:Images
+png:Images
+mp3:Music
+txt:Docs
+docx:Docs
+doc:Docs
+mp4:Video
