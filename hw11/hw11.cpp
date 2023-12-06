@@ -10,6 +10,7 @@ namespace po = boost::program_options;
 namespace fs = boost::filesystem;
 
 std::map<std::string, std::string> rulesMap;
+fs::path root_folder ("../../hw11");
 std::string folderPath;
 
 // Код домашнего задания
@@ -66,25 +67,24 @@ void saveFile(fs::directory_entry entry)
 {
     auto extension = entry.path().extension();
     auto filename = entry.path().stem();
+    
+    fs::path dest;
 
     if (rulesMap.count(extension.string()))
     {
-        fs::path dest(folderPath + '/' + rulesMap[extension.string()] + '/' + filename.string() + '.' + extension.string());
-        if (!fs::exists(dest.parent_path()))
-        {
-            fs::create_directory(dest.parent_path());
-        }
-        fs::copy("../hw11/" + entry.path().string(), dest);
+        dest = folderPath + '/' + rulesMap[extension.string()] + '/' + filename.string() + extension.string();
     }
     else
     {
-        fs::path dest(folderPath + "/Other/" + filename.string() + '.' + extension.string());
-        if (!fs::exists(dest.parent_path()))
-        {
-            fs::create_directory(dest.parent_path());
-        }
-        fs::copy("../hw11/" + entry.path().string(), dest);
+        dest = folderPath + "/Other/" + filename.string() + extension.string();
     }
+    if (!fs::exists(dest.parent_path()))
+    {
+        fs::create_directory(dest.parent_path());
+    }
+
+    fs::copy(entry, dest);
+    fs::remove(entry);
 }
 
 void sortFolder(const fs::path& folder)
@@ -98,11 +98,12 @@ void sortFolder(const fs::path& folder)
             switch (st.type())
             {
                 case fs::regular_file:
-                    
+                    std::cout << entry << '\n';
                     saveFile(entry);
                     break;
                 case fs::directory_file:
                     sortFolder(entry);
+                    fs::remove(entry);
                     break;
                 default:
                     break;
@@ -113,20 +114,28 @@ void sortFolder(const fs::path& folder)
 
 void parseRules(std::string rulesPath)
 {
-    std::ifstream inp("../hw11/" + rulesPath);
+    std::ifstream inp(root_folder/rulesPath);
 
     if (inp.is_open())
     {
+        std::cout << "Rules:\n";
+
         std::string line;
         while(std::getline(inp, line))
         {
-            std::string ext = "";
+            std::string ext = ".";
             std::string folder = "";
             bool flag = false;
 
             for(auto e: line)
             {
-                if(!flag)
+                if(e == ':')
+                {
+                    flag = true;
+                }
+                else
+                {
+                    if(!flag)
                 {
                     ext += e;
                 }
@@ -134,21 +143,19 @@ void parseRules(std::string rulesPath)
                 {
                     folder += e;
                 }
-                if(e == ':')
-                {
-                    flag = true;
                 }
             }
-
+            
             rulesMap[ext] = folder;
+            std::cout << ext << ':' << folder << '\n';
         }
+
+        std::cout << '\n';
     }
 }
 
 int main(int argc, char** argv)
 {
-    
-
     po::options_description desc("Allowed options");
     desc.add_options()
         ("help,h", "print usage message")
@@ -159,13 +166,25 @@ int main(int argc, char** argv)
     po::store(po::command_line_parser(argc, argv).options(desc).run(), vm);
     po::notify(vm);
 
-    fs::path root_folder = "../hw11";
+    if (vm.count("help") || !vm.count("path") || !vm.count("rules")) {
+        std::cerr << desc << std::endl;
+        return 1;
+    }
 
-    fs::path folder = root_folder.string() + vm["path"].as<std::string>();
+    fs::path folder = root_folder/vm["path"].as<std::string>();
     folderPath = folder.string();
 
     std::string rules = vm["rules"].as<std::string>();
     parseRules(rules);
+    try
+    {
+        sortFolder(folder);
+        std::cout << "\nFolder " << folder << " was sorted successfully\n";
+    }
+    catch (std::exception e)
+    {
+        std::cout << "Error\n";
+    }
 
     return 0;
 }
