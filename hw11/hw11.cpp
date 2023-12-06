@@ -4,14 +4,13 @@
 #include <string>
 #include <iostream>
 #include <map>
+#include <fstream>
 
 namespace po = boost::program_options;
 namespace fs = boost::filesystem;
 
-std::vector<std::string> images;
-std::vector<std::string> music;
-std::vector<std::string> docs;
-std::vector<std::string> other;
+std::map<std::string, std::string> rulesMap;
+std::string folderPath;
 
 // Код домашнего задания
   // Сортировщик файлов
@@ -62,7 +61,32 @@ std::vector<std::string> other;
     // - Минимум 5 файлов на каждое расширение
     // - Содержимое файлов не важно
     // - Вложенные директории с файлами
-    
+
+void saveFile(fs::directory_entry entry)
+{
+    auto extension = entry.path().extension();
+    auto filename = entry.path().stem();
+
+    if (rulesMap.count(extension.string()))
+    {
+        fs::path dest(folderPath + '/' + rulesMap[extension.string()] + '/' + filename.string() + '.' + extension.string());
+        if (!fs::exists(dest.parent_path()))
+        {
+            fs::create_directory(dest.parent_path());
+        }
+        fs::copy("../hw11/" + entry.path().string(), dest);
+    }
+    else
+    {
+        fs::path dest(folderPath + "/Other/" + filename.string() + '.' + extension.string());
+        if (!fs::exists(dest.parent_path()))
+        {
+            fs::create_directory(dest.parent_path());
+        }
+        fs::copy("../hw11/" + entry.path().string(), dest);
+    }
+}
+
 void sortFolder(const fs::path& folder)
 {
     if(fs::exists(folder) && fs::is_directory(folder))
@@ -74,6 +98,8 @@ void sortFolder(const fs::path& folder)
             switch (st.type())
             {
                 case fs::regular_file:
+                    
+                    saveFile(entry);
                     break;
                 case fs::directory_file:
                     sortFolder(entry);
@@ -81,6 +107,40 @@ void sortFolder(const fs::path& folder)
                 default:
                     break;
             }
+        }
+    }
+}
+
+void parseRules(std::string rulesPath)
+{
+    std::ifstream inp("../hw11/" + rulesPath);
+
+    if (inp.is_open())
+    {
+        std::string line;
+        while(std::getline(inp, line))
+        {
+            std::string ext = "";
+            std::string folder = "";
+            bool flag = false;
+
+            for(auto e: line)
+            {
+                if(!flag)
+                {
+                    ext += e;
+                }
+                else
+                {
+                    folder += e;
+                }
+                if(e == ':')
+                {
+                    flag = true;
+                }
+            }
+
+            rulesMap[ext] = folder;
         }
     }
 }
@@ -102,7 +162,10 @@ int main(int argc, char** argv)
     fs::path root_folder = "../hw11";
 
     fs::path folder = root_folder.string() + vm["path"].as<std::string>();
-    std::string rules = vm["rules"].as<std::string>();   
+    folderPath = folder.string();
+
+    std::string rules = vm["rules"].as<std::string>();
+    parseRules(rules);
 
     return 0;
 }
